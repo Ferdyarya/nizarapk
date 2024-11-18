@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sewarumahkaca;
 use App\Models\Masterrumahkaca;
+use PDF;
 
 class SewarumahkacaController extends Controller
 {
@@ -28,43 +29,41 @@ class SewarumahkacaController extends Controller
         return view('sewarumahkaca.create', [
             'masterrumahkaca' => $masterrumahkaca,
         ]);
-        return view('peminjaman.create')->with('success', 'Data Telah ditambahkan');
+        return view('Sewarumahkaca.create')->with('success', 'Data Telah ditambahkan');
     }
 
 
     // return($request->all());
     public function store(Request $request)
 {
-    $request->validate([
-        'masterrumahkaca_id' => 'required|exists:masterrumahkacas,id',
-        'namapenyewa' => 'required|string|max:255',
-        'keperluan' => 'required|string|max:255',
-        'tanggal_start' => 'required|date|before_or_equal:tanggal_end',
-        'tanggal_end' => 'required|date|after_or_equal:tanggal_start',
-        'buktibayar' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-    ]);
-
     $data = $request->only([
-        'masterrumahkaca_id',
+        'id_masterrumahkaca',
         'namapenyewa',
         'keperluan',
         'tanggal_start',
-        'tanggal_end',
+        'tanggal_end'
     ]);
 
-    if ($request->hasFile('buktibayar')) {
+
+   if ($request->hasFile('buktibayar')) {
         $file = $request->file('buktibayar');
 
-        $fileName = time() . '_' . $file->getClientOriginalName();
+        if ($file->isValid()) {
 
-        $filePath = $file->storeAs('public/buktibayar', $fileName);
+            $fileName = time() . '_' . $file->getClientOriginalName();
 
-        $data['buktibayar'] = $filePath;
+            $filePath = $file->storeAs('public/buktibayar', $fileName);
+
+            $data['buktibayar'] = 'buktibayar/' . $fileName;
+        } else {
+            return back()->withErrors(['buktibayar' => 'File tidak valid.']);
+        }
     }
+
 
     Sewarumahkaca::create($data);
 
-    // Redirect dengan pesan sukses
+
     return redirect()->route('sewarumahkaca.index')->with('success', 'Data Sewa Rumah Kaca berhasil ditambahkan');
 }
 
@@ -112,5 +111,50 @@ class SewarumahkacaController extends Controller
 
         $pdf = PDF::loadview('sewarumahkaca/sewarumahkacapdf', ['sewarumahkaca' => $data]);
         return $pdf->download('laporan_sewarumahkaca.pdf');
+    }
+
+    // Laporan Buku Sewarumahkaca Filter
+    public function cetakbarangpertanggal()
+    {
+        $Sewarumahkaca = Sewarumahkaca::Paginate(10);
+
+        return view('laporannya.laporansewarumahkaca', ['laporansewarumahkaca' => $Sewarumahkaca]);
+    }
+
+    public function filterdatebarang(Request $request)
+    {
+        $startDate = $request->input('dari');
+        $endDate = $request->input('sampai');
+
+         if ($startDate == '' && $endDate == '') {
+            $laporansewarumahkaca = Sewarumahkaca::paginate(10);
+        } else {
+            $laporansewarumahkaca = Sewarumahkaca::whereDate('tanggal','>=',$startDate)
+                                        ->whereDate('tanggal','<=',$endDate)
+                                        ->paginate(10);
+        }
+        session(['filter_start_date' => $startDate]);
+        session(['filter_end_date' => $endDate]);
+
+        return view('laporannya.laporansewarumahkaca', compact('laporansewarumahkaca'));
+    }
+
+
+    public function laporansewarumahkacapdf(Request $request )
+    {
+        $startDate = session('filter_start_date');
+        $endDate = session('filter_end_date');
+
+        if ($startDate == '' && $endDate == '') {
+            $laporansewarumahkaca = Sewarumahkaca::all();
+        } else {
+            $laporansewarumahkaca = Sewarumahkaca::whereDate('tanggal', '>=', $startDate)
+                                            ->whereDate('tanggal', '<=', $endDate)
+                                            ->get();
+        }
+
+        // Render view dengan menyertakan data laporan dan informasi filter
+        $pdf = PDF::loadview('laporannya.laporansewarumahkacapdf', compact('laporansewarumahkaca'));
+        return $pdf->download('laporan_laporansewarumahkaca.pdf');
     }
 }

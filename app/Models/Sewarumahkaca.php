@@ -9,7 +9,7 @@ class Sewarumahkaca extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id_masterrumahkaca','namapenyewa','keperluan','tanggal','buktibayar'
+        'id_masterrumahkaca','namapenyewa','keperluan','tanggal','buktibayar','tanggal_start','tanggal_end'
     ];
 
     public function masterrumahkaca()

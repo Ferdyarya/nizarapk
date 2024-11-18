@@ -31,6 +31,11 @@ Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function() {
     // Data Tables Surat
     Route::resource('sewarumahkaca', SewarumahkacaController::class);
 
+    // Report
+    Route::get('laporannya/laporansewarumahkaca', [SewarumahkacaController::class, 'cetakbarangpertanggal'])->name('laporansewarumahkaca');
+    Route::get('laporansewarumahkaca', [SewarumahkacaController::class, 'filterdatebarang'])->name('laporansewarumahkaca');
+    Route::get('laporansewarumahkacapdf/filter={filter}', [SewarumahkacaController::class, 'laporansewarumahkacapdf'])->name('laporansewarumahkacapdf');
+
 
 
 

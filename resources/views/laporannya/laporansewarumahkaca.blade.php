@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Data Peminjaman Buku</h3>
+                                <h3 class="m-0">Data Rumah Kaca</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Data Peminjaman Buku</li>
+                                    <li class="breadcrumb-item active">Data Rumah Kaca</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -37,7 +37,7 @@
 
 
                     <div class="container">
-                        <form action="{{ route('laporanpeminjaman') }}" method="GET" class="row">
+                        <form action="{{ route('laporansewarumahkaca') }}" method="GET" class="row">
                             <div class="col-md-3">
                                 <label for="dari">Start Date:</label>
                                 <input type="date" id="dari" name="dari" class="form-control">
@@ -54,10 +54,10 @@
 
                             <div class="col-md-2 pt-4">
                                 @if (!empty($filter))
-                                    <a href="{{ route('laporanpeminjamanpdf', $filter) }}"
+                                    <a href="{{ route('laporansewarumahkacapdf', $filter) }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @else
-                                    <a href="{{ route('laporanpeminjamanpdf', 'all') }}"
+                                    <a href="{{ route('laporansewarumahkacapdf', 'all') }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @endif
                             </div>
@@ -68,48 +68,50 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th class="px-6 py-2">No</th>
-                                    <th class="px-6 py-2">Nama Peminjam</th>
-                                    <th class="px-6 py-2">Judul Buku</th>
-                                    <th class="px-6 py-2">Jumlah</th>
-                                    <th class="px-6 py-2">Tgl Pinjam</th>
-                                    <th class="px-6 py-2">Tenggat</th>
+                                <th class="px-6 py-2">No</th>
+                                <th class="px-6 py-2">Kategori</th>
+                                <th class="px-6 py-2">Nama Penyewa</th>
+                                <th class="px-6 py-2">Keperluan</th>
+                                <th class="px-6 py-2">Tanggal Mulai</th>
+                                <th class="px-6 py-2">Tanggal Berakhir</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{-- @php
                               $no=1;
                               @endphp --}}
-                                @foreach ($laporanpeminjaman as $index => $item)
+                                @foreach ($laporansewarumahkaca as $index => $item)
                                     <tr>
-                                        <th class="px-6 py-2">{{ $index + $laporanpeminjaman->firstItem() }}</th>
-                                        <td class="px-6 py-2"><b>{{ $item->user->name }}</b></td>
-                                        <td class="px-6 py-2"><b>
-                                                {{ $item->masterbuku->judul }},{{ $item->masterbuku->tahun }}
-                                                <p class="text-body mt-2">
-                                            </b>Author: {{ $item->masterbuku->author }}</p>
+                                        <td class="px-6 py-6">{{ $loop->iteration }}</td>
+                                        <td class="px-6 py-2">{{ $item->masterrumahkaca->rmhkaca }}</td>
+                                        <td class="px-6 py-2">{{ $item->namapenyewa }}</td>
+                                        <td class="px-6 py-2">{{ $item->keperluan }}</td>
+                                        <td class="px-6 py-2" name="tanggal_start">
+                                            @if($item->tanggal_start && $item->tanggal_end)
+                                                {{ \Carbon\Carbon::parse($item->tanggal_start)->format('d-m-Y') }}
+                                            @else
+                                                <span class="badge badge-warning">Tanggal tidak valid</span>
+                                            @endif
                                         </td>
-                                        <td class="px-6 py-2">{{ $item->jumlah }}</td>
-                                        <td class="px-6 py-2">
-                                            {{ \Carbon\Carbon::parse($item->tanggalpinjam)->format('d M Y') }}</td>
-                                        <td class="px-6 py-2">
-                                            {{ \Carbon\Carbon::parse($item->tenggat)->format('d M Y') }}
+                                        <td class="px-6 py-2" name="tanggal_end">
+                                            @if($item->tanggal_start && $item->tanggal_end)
+                                                {{ \Carbon\Carbon::parse($item->tanggal_end)->format('d-m-Y') }}
+                                            @else
+                                                <span class="badge badge-warning">Tanggal tidak valid</span>
+                                            @endif
                                         </td>
-                                        {{-- <td>
-                                      <a href="{{ route('rusak.edit', $item->id)}}" class="btn btn-primary">
-                                          Edit
-                                      </a>
-                                      <form action="{{ route('rusak.destroy', $item->id) }}" method="POST" style="display:inline;">
-                                          @csrf
-                                          @method('delete')
-                                          <button type="submit" class="btn btn-danger">Hapus</button>
-                                      </form>
-                                  </td> --}}
+                                        <td class="px-6 py-2">
+                                            @if ($item->buktibayar)
+                                                <a href="{{ asset('storage/'.$item->buktibayar) }}" target="_blank" class="btn btn-warning btn-sm">Lihat Bukti</a>
+                                            @else
+                                                <span class="badge badge-warning">Tidak ada</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $laporanpeminjaman->links() }}
+                        {{ $laporansewarumahkaca->links() }}
                     </div>
                 </div>
             </div>

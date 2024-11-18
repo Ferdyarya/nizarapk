@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('id_masterrumahkaca');
             $table->string('namapenyewa');
             $table->string('keperluan');
-            $table->string('tanggal');
+            $table->string('tanggal_start');
+            $table->string('tanggal_end');
             $table->string('buktibayar')->nullable();
             $table->timestamps();
         });

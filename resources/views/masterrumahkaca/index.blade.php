@@ -23,8 +23,8 @@
                           </div><!-- /.col -->
                           <div class="col-sm-6">
                               <ol class="breadcrumb float-sm-right">
-                                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                  <li class="breadcrumb-item active">Master Data Rumah Kaca</li>
+                                  {{-- <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                                  <li class="breadcrumb-item active">Master Data Rumah Kaca</li> --}}
                               </ol>
                           </div><!-- /.col -->
                       </div><!-- /.row -->
@@ -49,7 +49,7 @@
 
                       {{-- Button Export PDF --}}
                       <div class="col-auto">
-                          <a href="{{ route('masterrumahkaca.create')}}" class="btn btn-success">
+                          <a href="{{ route('masterrumahkaca.create')}}" class="btn btn-warning">
                               Tambah Data
                           </a>
                           {{-- <a href="{{ route('masterrumahkacapdf')}}" class="btn btn-danger">

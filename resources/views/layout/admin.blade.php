@@ -34,7 +34,7 @@
                 <br>
               <div class="brand-logo d-flex align-items-center justify-content-between">
                 <a href="./index.html" class="text-nowrap logo-img">
-                  <img src="{{ asset('assets/BSIP.png')}}" width="90" alt="" />
+                  <img src="{{ asset('assets/BSIP.png')}}" width="180" alt="" />
                 </a>
                 <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                   <i class="ti ti-x fs-8"></i>
@@ -84,7 +84,7 @@
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('sewarumahkaca.index') }}" aria-expanded="false">
                         <span>
-                            <i class="ti ti-house"></i>
+                            <i class="ti ti-menu"></i>
                         </span>
                         <span class="hide-menu">Sewa Rumah Kaca Surat</span>
                     </a>
@@ -111,7 +111,7 @@
                     <span class="hide-menu">Report</span>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="/" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ route('laporansewarumahkaca')}}" aria-expanded="false">
                       <span>
                         <i class="ti ti-report"></i>
                       </span>

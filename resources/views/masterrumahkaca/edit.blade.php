@@ -32,7 +32,7 @@
                                         <input value="{{ $item->rmhkaca }}" type="text" name="nama" class="form-control"
                                             id="exampleInputPassword1" placeholder="Masukan Nama Rumah Kaca" required>
                                      </div>
-                                      <button type="submit" class="btn btn-primary">Submit</button>
+                                      <button type="submit" class="btn btn-warning">Submit</button>
                                   </form>
                               </div>
                           </div>

@@ -23,8 +23,8 @@
                           </div><!-- /.col -->
                           <div class="col-sm-6">
                               <ol class="breadcrumb float-sm-right">
-                                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                  <li class="breadcrumb-item active">Sewa Data Rumah Kaca</li>
+                                  {{-- <li class="breadcrumb-item"><a href="#">Dashboard</a></li> --}}
+                                  {{-- <li class="breadcrumb-item active">Sewa Data Rumah Kaca</li> --}}
                               </ol>
                           </div><!-- /.col -->
                       </div><!-- /.row -->
@@ -49,7 +49,7 @@
 
                       {{-- Button Export PDF --}}
                       <div class="col-auto">
-                          <a href="{{ route('sewarumahkaca.create')}}" class="btn btn-success">
+                          <a href="{{ route('sewarumahkaca.create')}}" class="btn btn-warning">
                               Tambah Data
                           </a>
                           {{-- <a href="{{ route('sewarumahkacapdf')}}" class="btn btn-danger">
@@ -66,7 +66,8 @@
                                 <th class="px-6 py-2">Kategori</th>
                                 <th class="px-6 py-2">Nama Penyewa</th>
                                 <th class="px-6 py-2">Keperluan</th>
-                                <th class="px-6 py-2">Tanggal</th>
+                                <th class="px-6 py-2">Tanggal Mulai</th>
+                                <th class="px-6 py-2">Tanggal Berakhir</th>
                                 <th class="px-6 py-2">Bukti Pembayaran</th>
                                 <th class="px-6 py-2">Action</th>
                             </tr>
@@ -81,10 +82,15 @@
                                 <td class="px-6 py-2">{{ $item->masterrumahkaca->rmhkaca }}</td>
                                 <td class="px-6 py-2">{{ $item->namapenyewa }}</td>
                                 <td class="px-6 py-2">{{ $item->keperluan }}</td>
-                                <td class="px-6 py-2">
+                                <td class="px-6 py-2" name="tanggal_start">
                                     @if($item->tanggal_start && $item->tanggal_end)
                                         {{ \Carbon\Carbon::parse($item->tanggal_start)->format('d-m-Y') }}
-                                        s/d
+                                    @else
+                                        <span class="badge badge-warning">Tanggal tidak valid</span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-2" name="tanggal_end">
+                                    @if($item->tanggal_start && $item->tanggal_end)
                                         {{ \Carbon\Carbon::parse($item->tanggal_end)->format('d-m-Y') }}
                                     @else
                                         <span class="badge badge-warning">Tanggal tidak valid</span>
@@ -92,7 +98,7 @@
                                 </td>
                                 <td class="px-6 py-2">
                                     @if ($item->buktibayar)
-                                        <a href="{{ asset('storage/'.$item->buktibayar) }}" target="_blank" class="btn btn-info btn-sm">Lihat Bukti</a>
+                                        <a href="{{ asset('storage/'.$item->buktibayar) }}" target="_blank" class="btn btn-warning btn-sm">Lihat Bukti</a>
                                     @else
                                         <span class="badge badge-warning">Tidak ada</span>
                                     @endif

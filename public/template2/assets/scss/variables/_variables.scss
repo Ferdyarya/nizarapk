@@ -2,32 +2,31 @@
 // Variables Style
 // ----------------------------------------------
 
-
 // colors
 $white: #fff !default;
-$gray-100: #F6F9FC !default;
-$gray-200: #EAEFF4 !default;
-$gray-300: #DFE5EF !default;
-$gray-400: #7C8FAC !default;
-$gray-500: #5A6A85 !default;
-$gray-600: #2A3547 !default;
+$gray-100: #f6f9fc !default;
+$gray-200: #eaeff4 !default;
+$gray-300: #dfe5ef !default;
+$gray-400: #7c8fac !default;
+$gray-500: #5a6a85 !default;
+$gray-600: #2a3547 !default;
 $black: #000 !default;
 
 // Color
-$blue: #5D87FF !default;
+$blue: #ffea00 !default;
 $indigo: #6610f2 !default;
 $purple: #6f42c1 !default;
 $pink: #d63384 !default;
-$red: #FA896B !default;
+$red: #fa896b !default;
 $orange: #fd7e14 !default;
-$yellow: #FFAE1F !default;
-$green: #13DEB9 !default;
+$yellow: #ffae1f !default;
+$green: #13deb9 !default;
 $teal: #20c997 !default;
-$cyan: #539BFF !default;
+$cyan: #539bff !default;
 
 // Main Colors
 $primary: $blue !default;
-$secondary: #49BEFF !default;
+$secondary: #49beff !default;
 $success: $green !default;
 $info: $cyan !default;
 $warning: $yellow !default;
@@ -39,52 +38,51 @@ $dark-light: $gray-600 !default;
 $light-gray: $gray-100 !default;
 
 // light colors
-$light-primary: #ECF2FF;
-$light-secondary: #E8F7FF;
-$light-info: #EBF3FE;
-$light-success: #E6FFFA;
-$light-warning: #FEF5E5;
-$light-danger: #FBF2EF;
-$light-indigo: #EBF3FE;
-
+$light-primary: #ecf2ff;
+$light-secondary: #e8f7ff;
+$light-info: #ebf3fe;
+$light-success: #e6fffa;
+$light-warning: #fef5e5;
+$light-danger: #fbf2ef;
+$light-indigo: #ebf3fe;
 
 // Theme Colorss
 $theme-colors: (
-  "primary": $primary,
-  "secondary": $secondary,
-  "success": $success,
-  "info": $info,
-  "warning": $warning,
-  "danger": $danger,
-  "light": $light,
-  "dark": $dark,
-  "muted": $muted,
-  "indigo": $indigo,
-  "light-primary": $light-primary,
-  "light-secondary": $light-secondary,
-  "light-info": $light-info,
-  "light-success": $light-success,
-  "light-warning": $light-warning,
-  "light-danger": $light-danger,
-  "light-indigo": $light-indigo,
-  "dark-light": $dark-light,
-  "light-gray": $light-gray,
-  ) !default;
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
+    "muted": $muted,
+    "indigo": $indigo,
+    "light-primary": $light-primary,
+    "light-secondary": $light-secondary,
+    "light-info": $light-info,
+    "light-success": $light-success,
+    "light-warning": $light-warning,
+    "light-danger": $light-danger,
+    "light-indigo": $light-indigo,
+    "dark-light": $dark-light,
+    "light-gray": $light-gray,
+) !default;
 
 // Spacer
 $spacer: 1rem !default;
 $spacers: (
-  0: 0,
-  1: $spacer * 0.25,
-  2: $spacer * 0.5,
-  3: $spacer,
-  4: $spacer * 1.5,
-  5: $spacer * 3,
-  6: 12px,
-  7: 30px,
-  8: 10px,
-  9: 20px,
-  ) !default;
+    0: 0,
+    1: $spacer * 0.25,
+    2: $spacer * 0.5,
+    3: $spacer,
+    4: $spacer * 1.5,
+    5: $spacer * 3,
+    6: 12px,
+    7: 30px,
+    8: 10px,
+    9: 20px,
+) !default;
 
 // Common
 $min-contrast-ratio: 1.7 !default;
@@ -119,14 +117,14 @@ $font-family-sans-serif: "Plus Jakarta Sans", sans-serif !default;
 
 // Font Sizes
 $font-sizes: (
-  1: 10px,
-  2: 12px,
-  3: 14px,
-  4: 16px,
-  5: 18px,
-  6: 20px,
-  8: 30px,
-  ) !default;
+    1: 10px,
+    2: 12px,
+    3: 14px,
+    4: 16px,
+    5: 18px,
+    6: 20px,
+    8: 30px,
+) !default;
 $font-size-base: 0.875rem !default;
 
 // Line Heght
@@ -136,7 +134,7 @@ $line-height-lg: 2 !default;
 
 // Body
 $body-bg: $white !default;
-$body-color: #5A6A85 !default;
+$body-color: #5a6a85 !default;
 
 // Heading
 $headings-color: $dark !default;
@@ -154,7 +152,7 @@ $card-border-width: 0px !default;
 $card-border-color: #ebf1f6 !default;
 $card-border-radius: 7px;
 $card-box-shadow: rgb(145 158 171 / 20%) 0px 0px 2px 0px,
-  rgb(145 158 171 / 12%) 0px 12px 24px -4px !default;
+    rgb(145 158 171 / 12%) 0px 12px 24px -4px !default;
 
 // Border Radius
 $border-radius: 7px !default;
@@ -169,7 +167,6 @@ $badge-padding-y: 5px !default;
 $badge-padding-x: 10px !default;
 $badge-border-radius: 4px;
 
-
 // Table
 $table-cell-padding-y: 16px !default;
 $table-cell-padding-x: 16px !default;
@@ -177,7 +174,6 @@ $table-th-font-weight: 600 !default;
 $table-striped-bg: $gray-200 !default;
 $table-hover-bg: $gray-100 !default;
 $table-border-color: $border-color !default;
-
 
 // Input
 $form-label-color: $gray-600;
@@ -188,7 +184,7 @@ $form-select-box-shadow: unset !default;
 $input-border-radius: 7px !default;
 $input-group-addon-bg: $gray-200 !default;
 $input-group-addon-border-color: $light !default;
-$input-border-color: #DFE5EF !default;
+$input-border-color: #dfe5ef !default;
 $input-bg: transparent !default;
 $input-color: $gray-500 !default;
 $input-padding-y: 8px;
@@ -205,7 +201,7 @@ $dropdown-link-hover-bg: $gray-100 !default;
 $dropdown-link-active-bg: $gray-100;
 $dropdown-link-active-color: $dark;
 $dropdown-box-shadow: rgb(145 158 171 / 20%) 0px 0px 2px 0px,
-  rgb(145 158 171 / 12%) 0px 12px 24px -4px;
+    rgb(145 158 171 / 12%) 0px 12px 24px -4px;
 
 // Modal
 $modal-content-border-width: 0 !default;
