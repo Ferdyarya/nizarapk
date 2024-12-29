@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Data Rumah Kaca</h3>
+                                <h3 class="m-0">Data Laporan Pembangunan Rumah Kaca</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Data Rumah Kaca</li>
+                                    <li class="breadcrumb-item active">Data Laporan Pembangunan Rumah Kaca</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -37,7 +37,7 @@
 
 
                     <div class="container">
-                        <form action="{{ route('laporansewarumahkaca') }}" method="GET" class="row">
+                        <form action="{{ route('laporanpembangunanrumahkaca') }}" method="GET" class="row">
                             <div class="col-md-3">
                                 <label for="dari">Start Date:</label>
                                 <input type="date" id="dari" name="dari" class="form-control">
@@ -54,10 +54,10 @@
 
                             <div class="col-md-2 pt-4">
                                 @if (!empty($filter))
-                                    <a href="{{ route('laporansewarumahkacapdf', $filter) }}"
+                                    <a href="{{ route('laporanpembangunanrumahkacapdf', $filter) }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @else
-                                    <a href="{{ route('laporansewarumahkacapdf', 'all') }}"
+                                    <a href="{{ route('laporanpembangunanrumahkacapdf', 'all') }}"
                                         class="btn btn-danger btn-block">Export PDF</a>
                                 @endif
                             </div>
@@ -68,51 +68,43 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                <th class="px-6 py-2">No</th>
-                                <th class="px-6 py-2">Kategori Rumah</th>
-                                <th class="px-6 py-2">Nama Penyewa</th>
-                                <th class="px-6 py-2">Keperluan</th>
-                                <th class="px-6 py-2">Tanggal Mulai</th>
-                                <th class="px-6 py-2">Tanggal Berakhir</th>
-                                <th class="px-6 py-2">Bukti Pembayaran</th>
+                                    <th class="px-6 py-2">No</th>
+                                    <th class="px-6 py-2">Tanggal</th>
+                                    <th class="px-6 py-2">Nama Rumah</th>
+                                    <th class="px-6 py-2">Deskripsi</th>
+                                    <th class="px-6 py-2">Penanggung Jawab</th>
+                                    <th class="px-6 py-2">Keperluan Dana</th>
+                                    <th class="px-6 py-2">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{-- @php
                               $no=1;
                               @endphp --}}
-                                @foreach ($laporansewarumahkaca as $index => $item)
+                                @foreach ($laporanpembangunanrumahkaca as $index => $item)
                                     <tr>
                                         <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                                        <td class="px-6 py-2">{{ $item->masterrumahkaca->rmhkaca }}</td>
-                                        <td class="px-6 py-2">{{ $item->namapenyewa }}</td>
-                                        <td class="px-6 py-2">{{ $item->keperluan }}</td>
-                                        <td class="px-6 py-2" name="tanggal_start">
-                                            @if($item->tanggal_start && $item->tanggal_end)
-                                                {{ \Carbon\Carbon::parse($item->tanggal_start)->format('d-m-Y') }}
-                                            @else
-                                                <span class="badge badge-warning">Tanggal tidak valid</span>
-                                            @endif
+                                        <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
                                         </td>
-                                        <td class="px-6 py-2" name="tanggal_end">
-                                            @if($item->tanggal_start && $item->tanggal_end)
-                                                {{ \Carbon\Carbon::parse($item->tanggal_end)->format('d-m-Y') }}
-                                            @else
-                                                <span class="badge badge-warning">Tanggal tidak valid</span>
-                                            @endif
-                                        </td>
+                                        <td class="px-6 py-2">{{ $item->namarumah }}</td>
+                                        <td class="px-6 py-2">{{ $item->deskripsi }}</td>
+                                        <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
+                                        <td class="px-6 py-2">Rp. {{ number_format($item->keperluandana) }}</td>
                                         <td class="px-6 py-2">
-                                            @if ($item->buktibayar)
-                                                <a href="{{ asset('storage/'.$item->buktibayar) }}" target="_blank" class="btn btn-warning btn-sm">Lihat Bukti</a>
-                                            @else
-                                                <span class="badge badge-warning">Tidak ada</span>
+                                            <!-- Display status as a badge if it's already set -->
+                                            @if ($item->status == 'Terverifikasi')
+                                                <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
+                                                <!-- Green for verified -->
+                                            @elseif($item->status == 'Ditolak')
+                                                <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
+                                                <!-- Red/orange for rejected -->
                                             @endif
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $laporansewarumahkaca->links() }}
+                        {{ $laporanpembangunanrumahkaca->links() }}
                     </div>
                 </div>
             </div>

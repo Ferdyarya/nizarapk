@@ -2,8 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MasterderetController;
+use App\Http\Controllers\MasternokursiController;
+use App\Http\Controllers\MasterpegawaiController;
 use App\Http\Controllers\SewarumahkacaController;
+use App\Http\Controllers\RawatrumahkacaController;
 use App\Http\Controllers\MasterrumahkacaController;
+use App\Http\Controllers\PembangunanrumahkacaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,15 +32,37 @@ Route::prefix('dashboard')->middleware(['auth:sanctum'])->group(function() {
 
     // Master Data
     Route::resource('masterrumahkaca', MasterrumahkacaController::class);
+    Route::resource('masterpegawai', MasterpegawaiController::class);
+    Route::resource('masterderetkursi', MasterderetController::class);
+    Route::resource('masternokursi', MasternokursiController::class);
 
     // Data Tables Surat
     Route::resource('sewarumahkaca', SewarumahkacaController::class);
+    Route::resource('rawatrumahkaca', RawatrumahkacaController::class);
+    Route::resource('pembangunanrumahkaca', PembangunanrumahkacaController::class);
 
     // Report
+    // Sewa Rumah Kaca
     Route::get('laporannya/laporansewarumahkaca', [SewarumahkacaController::class, 'cetakbarangpertanggal'])->name('laporansewarumahkaca');
     Route::get('laporansewarumahkaca', [SewarumahkacaController::class, 'filterdatebarang'])->name('laporansewarumahkaca');
     Route::get('laporansewarumahkacapdf/filter={filter}', [SewarumahkacaController::class, 'laporansewarumahkacapdf'])->name('laporansewarumahkacapdf');
 
+    Route::get('laporannya/pernama', [SewarumahkacaController::class, 'pernama'])->name('pernama');
+    Route::get('/pernamapdf', [SewarumahkacaController::class, 'cetakPernamaPdf'])->name('pernamapdf');
+
+    // Rawat Rumah Kaca
+    Route::get('laporannya/laporanrawatrumahkaca', [RawatrumahkacaController::class, 'cetakbarangpertanggal'])->name('laporanrawatrumahkaca');
+    Route::get('laporanrawatrumahkaca', [RawatrumahkacaController::class, 'filterdatebarang'])->name('laporanrawatrumahkaca');
+    Route::get('laporanrawatrumahkacapdf/filter={filter}', [RawatrumahkacaController::class, 'laporanrawatrumahkacapdf'])->name('laporanrawatrumahkacapdf');
+
+    // Pembangunan Rumah Kaca
+    Route::get('laporannya/laporanpembangunanrumahkaca', [PembangunanrumahkacaController::class, 'cetakbarangpertanggal'])->name('laporanpembangunanrumahkaca');
+    Route::get('laporanpembangunanrumahkaca', [PembangunanrumahkacaController::class, 'filterdatebarang'])->name('laporanpembangunanrumahkaca');
+    Route::get('laporanpembangunanrumahkacapdf/filter={filter}', [PembangunanrumahkacaController::class, 'laporanpembangunanrumahkacapdf'])->name('laporanpembangunanrumahkacapdf');
+
+    Route::put('/rawatrumahkaca/{id}/status', [RawatrumahkacaController::class, 'updateStatus'])->name('updateStatus');
+    Route::put('/pembangunanrumahkaca/{id}/status', [PembangunanrumahkacaController::class, 'updateStatus'])->name('updateStatus');
+    // Pembangunan Rumah Kaca
 
 
 

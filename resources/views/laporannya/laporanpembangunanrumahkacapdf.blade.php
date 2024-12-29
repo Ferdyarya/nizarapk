@@ -32,8 +32,8 @@
             padding-top: 12px;
             padding-bottom: 12px;
             /* text-align: left; */
-            background-color: #0423aa;
-            color: white;
+            background-color: #feed00;
+            color: rgb(0, 0, 0);
             /* text-align: center; */
         }
 
@@ -54,6 +54,15 @@
             margin-top: 20px;
             text-align: right;
             right: 50px;
+            font-size: 14px;
+        }
+
+        .signaturesewa {
+            position: absolute;
+            margin-top: 20px;
+            text-align: left;
+            left: 50px;
+            /* Mengubah dari right ke left untuk menempatkan di kiri */
             font-size: 14px;
         }
 
@@ -78,7 +87,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Penyewa Rumah Kaca</h5>
+        <h5 class="mt-4">Rekap Laporan Pembangunan Rumah Kaca</h5>
     </center>
 
 
@@ -89,9 +98,12 @@
         <thead>
             <tr>
                 <th class="px-6 py-2">No</th>
-                <th class="px-6 py-2">Kategori Rumah</th>
-                <th class="px-6 py-2">Nama Penyewa</th>
-                <th class="px-6 py-2">Keperluan</th>
+                <th class="px-6 py-2">Tanggal</th>
+                <th class="px-6 py-2">Nama Rumah</th>
+                <th class="px-6 py-2">Deskripsi</th>
+                <th class="px-6 py-2">Penanggung Jawab</th>
+                <th class="px-6 py-2">Keperluan Dana</th>
+                <th class="px-6 py-2">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -99,20 +111,34 @@
             $grandTotal = 0;
             @endphp --}}
 
-            @foreach ($sewarumahkaca as $item)
+            @foreach ($laporanpembangunanrumahkaca as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                    <td class="px-6 py-2">{{ $item->masterrumahkaca->rmhkaca }}</td>
-                    <td class="px-6 py-2">{{ $item->namapenyewa }}</td>
-                    <td class="px-6 py-2">{{ $item->keperluan }}</td>
+                    <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
+                    </td>
+                    <td class="px-6 py-2">{{ $item->namarumah }}</td>
+                    <td class="px-6 py-2">{{ $item->deskripsi }}</td>
+                    <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
+                    <td class="px-6 py-2">Rp. {{ number_format($item->keperluandana) }}</td>
+                    <td class="px-6 py-2">
+                        <!-- Display status as a badge if it's already set -->
+                        @if ($item->status == 'Terverifikasi')
+                            <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
+                            <!-- Green for verified -->
+                        @elseif($item->status == 'Ditolak')
+                            <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
+                            <!-- Red/orange for rejected -->
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     <div class="date-container">
-        Banjarbaru, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
+        Banjarmasin, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>
     </div>
-    <p class="signature">(Pimpinan)</p>
+    <p class="signature">(Arthanur Rifqi Hidayat, SP)</p>
+    <p class="signaturesewa">(Penyewa)</p>
 </body>
 
 </html>

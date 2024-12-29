@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Data Riwayat Peminjaman petugas</h3>
+                                <h3 class="m-0">Penyewa Rumah Kaca</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Data Riwayat Peminjaman petugas</li>
+                                    <li class="breadcrumb-item active">Penyewa Rumah Kaca</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -44,13 +44,13 @@
                             <select name="filter" id="filter" class="form-control">
                                 <option value="">FILTER</option>
                                 <option value="all" {{ $filter === 'all' ? 'selected' : '' }}>SHOW ALL</option>
-                                @if ($peminjaman->isEmpty())
+                                @if ($sewarumahkaca->isEmpty())
                                     <option value="" disabled>Data Tidak Tersedia</option>
                                 @else
-                                    @foreach ($peminjaman->unique('id_anggota') as $item)
-                                        <option value="{{ $item->id_anggota }}"
-                                            {{ $item->id_anggota == $filter ? 'selected' : '' }}>
-                                            {{ strtoupper($item->user->name) }}
+                                    @foreach ($sewarumahkaca->unique('namapenyewa') as $item)
+                                        <option value="{{ $item->namapenyewa }}"
+                                            {{ $item->namapenyewa == $filter ? 'selected' : '' }}>
+                                            {{ strtoupper($item->namapenyewa) }}
                                         </option>
                                     @endforeach
                                 @endif
@@ -68,39 +68,35 @@
                 </form>
             </div>
 
+
+
+
             <div class="container mt-4">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th class="px-6 py-2">No</th>
-                            <th class="px-6 py-2">Nama Peminjam</th>
-                            <th class="px-6 py-2">Judul Buku</th>
-                            <th class="px-6 py-2">Jumlah</th>
-                            <th class="px-6 py-2">Tgl Pinjam</th>
+                            <th class="px-6 py-2">Kategori Rumah</th>
+                            <th class="px-6 py-2">Nama Penyewa</th>
+                            <th class="px-6 py-2">Keperluan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($peminjaman as $index => $item)
+                        @foreach ($sewarumahkaca as $item)
                             <tr>
-                                <td class="px-6 py-2">{{ $index + $peminjaman->firstItem() }}</td>
-                                <td class="px-6 py-2"><b>{{ $item->user->name }}</b></td>
-                                <td class="px-6 py-2">
-                                    <b>{{ $item->masterbuku->judul }}, {{ $item->masterbuku->tahun }}</b>
-                                    <p class="text-body mt-2">Author: {{ $item->masterbuku->author }}</p>
-                                </td>
-                                <td class="px-6 py-2">{{ $item->jumlah }}</td>
-                                <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggalpinjam)->format('d M Y') }}</td>
-                            </tr>
+                                <td class="px-6 py-6">{{ $loop->iteration }}</td>
+                                <td class="px-6 py-2">{{ $item->masterrumahkaca->rmhkaca }}</td>
+                                <td class="px-6 py-2">{{ $item->namapenyewa }}</td>
+                                <td class="px-6 py-2">{{ $item->keperluan }}</td>
                         @endforeach
                     </tbody>
                 </table>
-                {{ $peminjaman->links() }}
+                {{ $sewarumahkaca->links() }}
             </div>
 
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 

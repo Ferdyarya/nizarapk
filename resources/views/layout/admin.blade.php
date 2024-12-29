@@ -60,14 +60,14 @@
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">MASTER DATA</span>
                   </li>
-                  {{-- <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('masteranggota.index')}}" aria-expanded="false">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('masterpegawai.index')}}" aria-expanded="false">
                       <span>
                         <i class="ti ti-article"></i>
                       </span>
                       <span class="hide-menu">Daftar Pegawai</span>
                     </a>
-                  </li> --}}
+                  </li>
                   <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('masterrumahkaca.index')}}" aria-expanded="false">
                       <span>
@@ -76,6 +76,22 @@
                       <span class="hide-menu">Daftar Rumah kaca</span>
                     </a>
                   </li>
+                  {{-- <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('masterderetkursi.index')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-article"></i>
+                      </span>
+                      <span class="hide-menu">Kategori Deret</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('masternokursi.index')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-article"></i>
+                      </span>
+                      <span class="hide-menu">Kategori No Kursi</span>
+                    </a>
+                  </li> --}}
                   <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Data Table</span>
@@ -87,6 +103,22 @@
                             <i class="ti ti-menu"></i>
                         </span>
                         <span class="hide-menu">Sewa Rumah Kaca Surat</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('rawatrumahkaca.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-menu"></i>
+                        </span>
+                        <span class="hide-menu">Perawatan Rumah Kaca</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('pembangunanrumahkaca.index') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-menu"></i>
+                        </span>
+                        <span class="hide-menu">Pembangunan Rumah Kaca</span>
                     </a>
                 </li>
                 {{-- <li class="sidebar-item">
@@ -116,6 +148,30 @@
                         <i class="ti ti-report"></i>
                       </span>
                       <span class="hide-menu">Lap Sewa Rumah kaca</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('laporanrawatrumahkaca')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Perawatan Rumah kaca</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('laporanpembangunanrumahkaca')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Pembangunan Rumah kaca</span>
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('pernama')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Jumlah Penyewa Rumah Kaca</span>
                     </a>
                   </li>
                 </ul>

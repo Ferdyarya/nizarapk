@@ -33,7 +33,7 @@
                                         <!-- Kategori Rumah Kaca (Select2 Dropdown) -->
                                         <div class="form-group">
                                             <label for="rumahkaca">Pilih Rumah</label>
-                                            <select class="form-select" name="id_masterrumahkaca" id="rumahkaca" style="border-radius: 8px;" required>
+                                            <select class="form-select" name="id_masterrumahkaca" data-placeholder="Pilih Rumah Kaca" id="rumahkaca" style="border-radius: 8px;" required>
                                                 <option value="">Pilih Rumah Kaca</option>
                                                 @foreach ($masterrumahkaca as $kategori)
                                                     <option value="{{ $kategori->id }}" @if($item->id_masterrumahkaca == $kategori->id) selected @endif>

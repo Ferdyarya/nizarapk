@@ -69,10 +69,10 @@ class MasterrumahkacaController extends Controller
         return redirect()->route('masterrumahkaca.index')->with('success', 'Data Telah dihapus');
     }
 
-    public function masterrumahkacapdf() {
-        $data = Masterrumahkaca::all();
+    // public function masterrumahkacapdf() {
+    //     $data = Masterrumahkaca::all();
 
-        $pdf = PDF::loadview('masterrumahkaca/masterrumahkacapdf', ['masterrumahkaca' => $data]);
-        return $pdf->download('laporan_masterrumahkaca.pdf');
-    }
+    //     $pdf = PDF::loadview('masterrumahkaca/masterrumahkacapdf', ['masterrumahkaca' => $data]);
+    //     return $pdf->download('laporan_masterrumahkaca.pdf');
+    // }
 }

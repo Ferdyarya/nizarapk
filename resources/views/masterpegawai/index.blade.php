@@ -41,22 +41,20 @@
                   {{-- search --}}
                   <div class="row g-3 align-items-center mb-4">
                       <div class="col-auto">
-                          <form action="masteranggota" method="GET">
+                          <form action="masterpegawai" method="GET">
                               <input type="text" id="search" name="search" class="form-control" placeholder="Search">
                           </form>
                       </div>
 
                       {{-- Button Export PDF --}}
-                      @if (Auth::user()->hakakses('petugas'))
                       <div class="col-auto">
-                          <a href="{{ route('masteranggota.create')}}" class="btn btn-success">
+                          <a href="{{ route('masterpegawai.create')}}" class="btn btn-success">
                               Tambah Data
                           </a>
-                          {{-- <a href="{{ route('masteranggotapdf')}}" class="btn btn-danger">
+                          {{-- <a href="{{ route('masterpegawaipdf')}}" class="btn btn-danger">
                               Export PDF
                           </a> --}}
                       </div>
-                      @endif
                   </div>
 
                   <div>
@@ -64,61 +62,41 @@
                         <thead>
                             <tr>
                                 <th class="px-6 py-2">No</th>
-                                <th class="px-6 py-2">Nama Anggota</th>
+                                <th class="px-6 py-2">Nama Pegawai</th>
                                 <th class="px-6 py-2">Email</th>
                                 <th class="px-6 py-2">No Telpon</th>
-                                <th class="px-6 py-2">Kelas</th>
+                                <th class="px-6 py-2">Jabatan</th>
                                 <th class="px-6 py-2">Jenis Kelamin</th>
-                                <th class="px-6 py-2">Tanggal Lahir</th>
-                                @if (Auth::user()->hakakses('pimpinan') || Auth::user()->hakakses('admin'))
-                                <th class="px-6 py-2">Status</th>
-                                @endif
-                                @if (Auth::user()->hakakses('petugas'))
+                                <th class="px-6 py-2">Cabang</th>
                                 <th class="px-6 py-2">Action</th>
-                                @endif
                             </tr>
                         </thead>
                         <tbody>
                             @php
                             $no = 1;
                             @endphp
-                            @foreach ($masteranggota as $index => $item)
+                            @foreach ($masterpegawai as $index => $item)
                             <tr>
-                                <th class="px-6 py-2">{{ $index + $masteranggota->firstItem() }}</th>
-                                <td class="px-6 py-2">{{ $item->user->name }}</td>
+                                <th class="px-6 py-2">{{ $index + $masterpegawai->firstItem() }}</th>
+                                <td class="px-6 py-2">{{ $item->nama }}</td>
                                 <td class="px-6 py-2">{{ $item->email }}</td>
                                 <td class="px-6 py-2">{{ $item->no_telp }}</td>
-                                <td class="px-6 py-2">{{ $item->kelas }}</td>
+                                <td class="px-6 py-2">{{ $item->jabatan }}</td>
                                 <td class="px-6 py-2">{{ $item->jeniskelamin }}</td>
-                                <td class="px-6 py-2">{{ $item->tgl_lahir }}</td>
-                                @if (Auth::user()->hakakses('pimpinan') || Auth::user()->hakakses('admin'))
+                                <td class="px-6 py-2">{{ $item->cabang }}</td>
                                 <td class="px-6 py-2">
-                                    {{ $item->status }}
-                                    <!-- Tombol Verifikasi -->
-                                    @if($item->status !== 'verifikasi')
-                                    <form action="{{ route('items.verify', $item->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-success">Verifikasi</button>
-                                    </form>
-                                    @endif
-                                </td>
-                                @endif
-                                @if (Auth::user()->hakakses('petugas'))
-                                <td class="px-6 py-2">
-                                    <a href="{{ route('masteranggota.edit', $item->id) }}" class="btn btn-primary">Edit</a>
-                                    <form action="{{ route('masteranggota.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('masterpegawai.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                    <form action="{{ route('masterpegawai.destroy', $item->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">Hapus</button>
                                     </form>
                                 </td>
-                                @endif
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                      {{ $masteranggota->links() }}
+                      {{ $masterpegawai->links() }}
                   </div>
               </div>
           </div>

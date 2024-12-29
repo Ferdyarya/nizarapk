@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('masteranggotas', function (Blueprint $table) {
+        Schema::create('masterpegawais', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('email');
@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('cabang');
             $table->string('jeniskelamin');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('masteranggotas');
+        Schema::dropIfExists('masterpegawais');
     }
 };

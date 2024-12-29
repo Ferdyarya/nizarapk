@@ -17,7 +17,7 @@ class MasteranggotaController extends Controller
 
         // Filter pencarian
         if ($request->has('search')) {
-            $query->where('judul', 'LIKE', '%' . $request->search . '%');
+            $query->where('nama', 'LIKE', '%' . $request->search . '%');
         }
         // Role-based filtering
         if (Auth::user()->roles == 'petugas') {

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use Illuminate\Http\Request;
 use App\Models\Sewarumahkaca;
 use App\Models\Masterrumahkaca;
-use PDF;
+use Illuminate\Support\Facades\DB;
 
 class SewarumahkacaController extends Controller
 {
@@ -157,4 +158,63 @@ class SewarumahkacaController extends Controller
         $pdf = PDF::loadview('laporannya.laporansewarumahkacapdf', compact('laporansewarumahkaca'));
         return $pdf->download('laporan_laporansewarumahkaca.pdf');
     }
+
+    // Report Pernama
+    public function pernama(Request $request)
+{
+    $filter = $request->query('filter', 'all');
+
+    $query = Sewarumahkaca::query();
+
+    if ($filter && $filter !== 'all') {
+        $query->where('namapenyewa', $filter);
+    }
+
+    $sewarumahkaca = $query->paginate(10);
+
+    $namapenyewaCounts = Sewarumahkaca::select('namapenyewa', DB::raw('count(*) as count'))
+        ->groupBy('namapenyewa')
+        ->orderBy('namapenyewa')
+        ->get();
+
+    return view('laporannya.pernama', [
+        'sewarumahkaca' => $sewarumahkaca,
+        'namapenyewaCounts' => $namapenyewaCounts,
+        'filter' => $filter,
+    ]);
+}
+
+
+
+
+    // Fungsi untuk mencetak PDF
+    public function cetakPernamaPdf(Request $request)
+{
+    $filter = $request->query('filter', 'all');
+
+    $query = Sewarumahkaca::query();
+
+    if ($filter && $filter !== 'all') {
+        $query->where('namapenyewa', $filter);
+    }
+
+    $sewarumahkaca = $query->get();
+
+    $namapenyewaCounts = Sewarumahkaca::select('namapenyewa', DB::raw('count(*) as count'))
+        ->groupBy('namapenyewa')
+        ->orderBy('namapenyewa')
+        ->get();
+
+    $pdf = PDF::loadView('laporannya.pernamapdf', [
+        'sewarumahkaca' => $sewarumahkaca,
+        'namapenyewaCounts' => $namapenyewaCounts,
+        'filter' => $filter,
+    ]);
+
+    return $pdf->download('laporan_pernama.pdf');
+}
+
+
+
+
 }

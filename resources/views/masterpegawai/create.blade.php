@@ -27,18 +27,21 @@
     <div class="container-fluid">
         <div class="card" style="border-radius: 15px;">
           <div class="card-body">
-              <h1 class="text-center mb-4">Tambah Data Daftar Anggota</h1>
+              <h1 class="text-center mb-4">Tambah Data Daftar Pegawai</h1>
               <div class="container">
                   <div class="row justify-content-center">
                       <div class="col-8">
                           <div class="card" style="border-radius: 10px;">
                               <div class="card-body">
-                                  <form method="POST" action="{{ route('masteranggota.store') }}" enctype="multipart/form-data">
+                                  <form method="POST" action="{{ route('masterpegawai.store') }}" enctype="multipart/form-data">
                                       @csrf
-                                    <div class="form-group" style="border-radius: 8px;">
-                                        <label for="id_anggota">Nama Anggota</label>
-                                        <input type="text" class="form-control" id="id_anggota" value="{{ Auth::user()->name }}" readonly>
-                                        <input type="hidden" value="{{ Auth::user()->id }}" name="id_anggota">
+                                    <div class="form-group">
+                                          <label for="nama">Nama Pegawai</label>
+                                          <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                                              aria-describedby="namaHelp" placeholder="Masukan Nama" value="{{ old('nama') }}" required>
+                                          @error('nama')
+                                              <div class="invalid-feedback">{{ $message }}</div>
+                                          @enderror
                                     </div>
                                     <div class="form-group">
                                           <label for="email">Email</label>
@@ -57,10 +60,10 @@
                                           @enderror
                                       </div>
                                       <div class="form-group">
-                                          <label for="kelas">Kelas</label>
-                                          <input type="text" name="kelas" class="form-control @error('kelas') is-invalid @enderror" id="kelas"
-                                              aria-describedby="emailHelp" placeholder="Masukan kelas" value="{{ old('kelas') }}" required>
-                                          @error('kelas')
+                                          <label for="jabatan">Jabatan</label>
+                                          <input type="text" name="jabatan" class="form-control @error('jabatan') is-invalid @enderror" id="jabatan"
+                                              aria-describedby="emailHelp" placeholder="Masukan jabatan" value="{{ old('jabatan') }}" required>
+                                          @error('jabatan')
                                               <div class="invalid-feedback">{{ $message }}</div>
                                           @enderror
                                       </div>
@@ -79,10 +82,10 @@
                                         @enderror
                                     </div>
                                       <div class="form-group">
-                                          <label for="tgl_lahir">Tanggal Lahir</label>
-                                          <input type="date" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror" id="tgl_lahir"
-                                              aria-describedby="emailHelp" placeholder="Masukan Kategori" value="{{ old('tgl_lahir') }}" required>
-                                          @error('tgl_lahir')
+                                          <label for="cabang">Cabang</label>
+                                          <input type="text" name="cabang" class="form-control @error('cabang') is-invalid @enderror" id="cabang"
+                                              aria-describedby="emailHelp" placeholder="Masukan Kategori" value="{{ old('cabang') }}" required>
+                                          @error('cabang')
                                               <div class="invalid-feedback">{{ $message }}</div>
                                           @enderror
                                       </div>

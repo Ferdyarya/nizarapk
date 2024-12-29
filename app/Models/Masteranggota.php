@@ -9,7 +9,7 @@ class Masteranggota extends Model
 {
     use HasFactory;
     protected $fillable = [
-         'email', 'no_telp','kelas','jeniskelamin','tgl_lahir','status','id_anggota'
+         'nama', 'email','no_telp','jabatan','cabang','jeniskelamin'
     ];
 
     public function user()
