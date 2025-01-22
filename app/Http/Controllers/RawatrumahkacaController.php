@@ -91,7 +91,7 @@ public function store(Request $request)
     }
 
     //Approval Status
-    public function updateStatus(Request $request, $id)
+    public function updateStatusRawat(Request $request, $id)
 {
     // Validate the incoming request to ensure a valid status is selected
     $validated = $request->validate([
@@ -107,8 +107,6 @@ public function store(Request $request)
 
     // Redirect back to the suratmasuk page with a success message
     return redirect()->route('rawatrumahkaca.index')->with('success', 'Status surat berhasil diperbarui.');
-
-
 }
 
 
@@ -125,14 +123,14 @@ public function store(Request $request)
 
     //Report
     //  Laporan Buku rawatrumahkaca Filter
-     public function cetakbarangpertanggal()
+     public function cetakrawatpertanggal()
      {
          $rawatrumahkaca = rawatrumahkaca::Paginate(10);
 
          return view('laporannya.laporanrawatrumahkaca', ['laporanrawatrumahkaca' => $rawatrumahkaca]);
      }
 
-     public function filterdatebarang(Request $request)
+     public function filterdaterawat(Request $request)
      {
          $startDate = $request->input('dari');
          $endDate = $request->input('sampai');

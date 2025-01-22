@@ -64,6 +64,7 @@
                               <tr>
                                   <th class="px-6 py-2">No</th>
                                   <th class="px-6 py-2">Kategori</th>
+                                  <th class="px-6 py-2">Harga Sewa Perminggu</th>
                                   <th class="px-6 py-2">Action</th>
                               </tr>
                           </thead>
@@ -75,6 +76,7 @@
                               <tr>
                                   <th class="px-6 py-2">{{ $index + $masterrumahkaca->firstItem() }}</th>
                                   <td class="px-6 py-2">{{ $item->rmhkaca }}</td>
+                                  <td class="px-6 py-2">Rp. {{ number_format($item->hargasewa) }}</td>
                                   <td>
                                       <a href="{{ route('masterrumahkaca.edit', $item->id)}}" class="btn btn-primary">
                                           Edit

@@ -9,7 +9,7 @@ class Masterrumahkaca extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'rmhkaca'
+        'rmhkaca','hargasewa'
     ];
 }
 

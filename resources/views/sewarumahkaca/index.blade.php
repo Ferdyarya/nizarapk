@@ -64,6 +64,7 @@
                             <tr>
                                 <th class="px-6 py-2">No</th>
                                 <th class="px-6 py-2">Kategori</th>
+                                <th class="px-6 py-2">Harga Seminggu Sewa</th>
                                 <th class="px-6 py-2">Nama Penyewa</th>
                                 <th class="px-6 py-2">Keperluan</th>
                                 <th class="px-6 py-2">Tanggal Mulai</th>
@@ -80,6 +81,7 @@
                             <tr>
                                 <td class="px-6 py-2">{{ $no++ }}</td>
                                 <td class="px-6 py-2">{{ $item->masterrumahkaca->rmhkaca }}</td>
+                                <td class="px-6 py-2">{{ $item->masterrumahkaca->hargasewa }}</td>
                                 <td class="px-6 py-2">{{ $item->namapenyewa }}</td>
                                 <td class="px-6 py-2">{{ $item->keperluan }}</td>
                                 <td class="px-6 py-2" name="tanggal_start">

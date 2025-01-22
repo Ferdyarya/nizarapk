@@ -17,12 +17,12 @@
                     <div class="content-header">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h3 class="m-0">Data Rumah Kaca</h3>
+                                <h3 class="m-0">Data Lap Kategori Rumah Kaca</h3>
                             </div><!-- /.col -->
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
                                     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Data Rumah Kaca</li>
+                                    <li class="breadcrumb-item active">Data Lap Kategori Rumah Kaca</li>
                                 </ol>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
@@ -36,33 +36,36 @@
 
 
 
-                    <div class="container">
-                        <form action="{{ route('laporansewarumahkaca') }}" method="GET" class="row">
-                            <div class="col-md-3">
-                                <label for="dari">Start Date:</label>
-                                <input type="date" id="dari" name="dari" class="form-control">
-                            </div>
-
-                            <div class="col-md-3">
-                                <label for="sampai">End Date:</label>
-                                <input type="date" id="sampai" name="sampai" class="form-control">
-                            </div>
-
-                            <div class="col-md-1 pt-4">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
-
-                            <div class="col-md-2 pt-4">
-                                @if (!empty($filter))
-                                    <a href="{{ route('laporansewarumahkacapdf', $filter) }}"
-                                        class="btn btn-danger btn-block">Export PDF</a>
-                                @else
-                                    <a href="{{ route('laporansewarumahkacapdf', 'all') }}"
-                                        class="btn btn-danger btn-block">Export PDF</a>
-                                @endif
-                            </div>
-                        </form>
+              <div class="container">
+                <form action="{{ route('perkategori') }}" method="GET" class="row align-items-center">
+                    <div class="col-md-8 mb-2">
+                        <div class="form-group">
+                            <label for="filter" class="sr-only">Filter</label>
+                            <select name="filter" id="filter" class="form-control">
+                                <option value="all" {{ $filter === 'all' ? 'selected' : '' }}>SHOW ALL</option>
+                                @forelse ($rmhkacaCounts as $item)
+                                    <option value="{{ $item->rmhkaca }}" {{ $item->rmhkaca == $filter ? 'selected' : '' }}>
+                                        {{ strtoupper($item->rmhkaca) }}
+                                    </option>
+                                @empty
+                                    <option value="" disabled>Data Tidak Tersedia</option>
+                                @endforelse
+                            </select>
+                        </div>
                     </div>
+
+                    <div class="col-md-2 mb-2">
+                        <button type="submit" class="btn btn-success btn-block">Submit</button>
+                    </div>
+
+                    <div class="col-md-2 mb-2">
+                        <a href="{{ route('perkategoripdf', ['filter' => $filter ?: 'all']) }}" class="btn btn-danger btn-block">
+                            Export PDF
+                        </a>
+                    </div>
+                </form>
+            </div>
+
 
                     <div>
                         <table class="table table-hover">
@@ -82,11 +85,11 @@
                                 {{-- @php
                               $no=1;
                               @endphp --}}
-                                @foreach ($laporansewarumahkaca as $index => $item)
+                                @foreach ($sewarumahkaca as $index => $item)
                                     <tr>
                                         <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                                        <td class="px-6 py-2">{{ $item->masterrumahkaca->rmhkaca }}</td>
-                                        <td class="px-6 py-2">Rp. {{ number_format($item->masterrumahkaca->hargasewa) }}</td>
+                                        <td class="px-6 py-2">{{ $item->rmhkaca }}</td>
+                                        <td class="px-6 py-2">Rp. {{ number_format($item->hargasewa) }}</td>
                                         <td class="px-6 py-2">{{ $item->namapenyewa }}</td>
                                         <td class="px-6 py-2">{{ $item->keperluan }}</td>
                                         <td class="px-6 py-2" name="tanggal_start">
@@ -114,7 +117,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $laporansewarumahkaca->links() }}
+                        {{ $sewarumahkaca->links() }}
                     </div>
                 </div>
             </div>

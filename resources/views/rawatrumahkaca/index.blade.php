@@ -37,7 +37,7 @@
                     </div>
                     {{-- Button Export PDF --}}
                     <div class="col-auto">
-                        <a href="{{ route('rawatrumahkaca.create')}}" class="btn btn-success">
+                        <a href="{{ route('rawatrumahkaca.create')}}" class="btn btn-warning">
                             Tambah Data
                         </a>
                     </div>
@@ -67,25 +67,35 @@
                                 <td class="px-6 py-2">{{ $item->deskripsi }}</td>
                                 <td class="px-6 py-2">Rp. {{ number_format($item->keperluandana) }}</td>
                                 <td class="px-6 py-2">
-                                    <!-- Display status as a badge if it's already set -->
                                     @if($item->status == 'Terverifikasi')
                                         <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
                                     @elseif($item->status == 'Ditolak')
                                         <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                                    @elseif($item->status == 'Tunggu Verifikasi')
+                                        <span class="p-2 mb-2 bg-warning text-black rounded">Tunggu Verifikasi</span> <!-- Yellow for waiting verification -->
                                     @else
-                                        <!-- Form for selecting status if it's not set to 'Terverifikasi' or 'Ditolak' -->
-                                        <form action="{{ route('updateStatus', $item->id) }}" method="POST">
+                                        <!-- When status is neither 'Terverifikasi', 'Ditolak', nor 'Tunggu Verifikasi' -->
+                                        @if (!Auth::user()->hakakses('pimpinan'))
+                                            <span class="p-2 mb-2 bg-warning text-black rounded">Tunggu Verifikasi</span> <!-- Default to "Waiting for Verification" if not pimpinan -->
+                                        @endif
+                                        @if (Auth::user()->hakakses('pimpinan'))
+                                        <form action="{{ route('updateStatusRawat', $item->id) }}" method="POST">
                                             @csrf
                                             @method('PUT') <!-- Use PUT method to update the record -->
                                             <select name="status" class="form-control form-control-sm">
                                                 <option value="Terverifikasi" {{ $item->status == 'Terverifikasi' ? 'selected' : '' }} style="background-color: #28a745; color: white;">Verifikasi</option> <!-- Green for Verifikasi -->
                                                 <option value="Ditolak" {{ $item->status == 'Ditolak' ? 'selected' : '' }} style="background-color: #dc3545; color: white;">Tolak</option> <!-- Red for Ditolak -->
+                                                <option value="Tunggu Verifikasi" {{ $item->status == 'Tunggu Verifikasi' ? 'selected' : '' }} style="background-color: #ffc107; color: black;">Tunggu Verifikasi</option> <!-- Yellow for Tunggu Verifikasi -->
                                             </select>
                                             <!-- Submit button to save changes -->
                                             <button type="submit" class="btn btn-primary btn-sm mt-2">Update Status</button>
                                         </form>
+                                        @endif
                                     @endif
                                 </td>
+
+
+
                                 <td class="px-6 py-2">
                                     <a href="{{ route('rawatrumahkaca.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                     <form action="{{ route('rawatrumahkaca.destroy', $item->id) }}" method="POST" style="display:inline;">

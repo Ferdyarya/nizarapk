@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('masterrumahkacas', function (Blueprint $table) {
             $table->id();
             $table->string('rmhkaca');
+            $table->string('hargasewa');
             $table->timestamps();
         });
     }

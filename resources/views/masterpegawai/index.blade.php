@@ -48,7 +48,7 @@
 
                       {{-- Button Export PDF --}}
                       <div class="col-auto">
-                          <a href="{{ route('masterpegawai.create')}}" class="btn btn-success">
+                          <a href="{{ route('masterpegawai.create')}}" class="btn btn-warning">
                               Tambah Data
                           </a>
                           {{-- <a href="{{ route('masterpegawaipdf')}}" class="btn btn-danger">

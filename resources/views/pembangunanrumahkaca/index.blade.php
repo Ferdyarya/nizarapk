@@ -37,7 +37,7 @@
                     </div>
                     {{-- Button Export PDF --}}
                     <div class="col-auto">
-                        <a href="{{ route('pembangunanrumahkaca.create')}}" class="btn btn-success">
+                        <a href="{{ route('pembangunanrumahkaca.create')}}" class="btn btn-warning">
                             Tambah Data
                         </a>
                     </div>
@@ -72,19 +72,30 @@
                                     @if($item->status == 'Terverifikasi')
                                         <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span> <!-- Green for verified -->
                                     @elseif($item->status == 'Ditolak')
-                                        <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red/orange for rejected -->
+                                        <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span> <!-- Red for rejected -->
                                     @else
-                                        <form action="{{ route('updateStatus', $item->id) }}" method="POST">
+                                        <!-- If status is neither 'Terverifikasi' nor 'Ditolak' -->
+                                        @if (!Auth::user()->hakakses('pimpinan'))
+                                            <span class="p-2 mb-2 bg-warning text-black rounded">Tunggu Verifikasi</span> <!-- Yellow for pending verification -->
+                                        @endif
+
+                                        @if (Auth::user()->hakakses('pimpinan'))
+                                        <form action="{{ route('updateStatus', $item->id) }}" method="POST" class="mt-2">
                                             @csrf
                                             @method('PUT')
                                             <select name="status" class="form-control form-control-sm">
                                                 <option value="Terverifikasi" {{ $item->status == 'Terverifikasi' ? 'selected' : '' }} style="background-color: #28a745; color: white;">Verifikasi</option> <!-- Green for Verifikasi -->
                                                 <option value="Ditolak" {{ $item->status == 'Ditolak' ? 'selected' : '' }} style="background-color: #dc3545; color: white;">Tolak</option> <!-- Red for Ditolak -->
+                                                <option value="Tunggu Verifikasi" {{ $item->status == 'Tunggu Verifikasi' ? 'selected' : '' }} style="background-color: #ffc107; color: black;">Tunggu Verifikasi</option> <!-- Yellow for pending -->
                                             </select>
                                             <button type="submit" class="btn btn-primary btn-sm mt-2">Update Status</button>
                                         </form>
+                                        @endif
                                     @endif
                                 </td>
+
+
+
                                 <td class="px-6 py-2">
                                     <a href="{{ route('pembangunanrumahkaca.edit', $item->id) }}" class="btn btn-primary">Edit</a>
                                     <form action="{{ route('pembangunanrumahkaca.destroy', $item->id) }}" method="POST" style="display:inline;">

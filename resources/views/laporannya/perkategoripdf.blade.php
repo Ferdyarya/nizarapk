@@ -87,7 +87,7 @@
     </div>
 
     <center>
-        <h5 class="mt-4">Rekap Laporan Sewa Rumah Kaca</h5>
+        <h5 class="mt-4">Rekap Laporan Kategori Sewa Rumah Kaca</h5>
     </center>
 
 
@@ -111,10 +111,10 @@
             $grandTotal = 0;
             @endphp
 
-            @foreach ($laporansewarumahkaca as $item)
+            @foreach ($sewarumahkaca as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                    <td class="px-6 py-2">{{ $item->masterrumahkaca->rmhkaca }}</td>
+                    <td class="px-6 py-2">{{ $item->rmhkaca }}</td>
                     <td class="px-6 py-2">{{ $item->namapenyewa }}</td>
                     <td class="px-6 py-2">{{ $item->keperluan }}</td>
                     <td class="px-6 py-2" name="tanggal_start">
@@ -131,10 +131,10 @@
                             <span class="badge badge-warning">Tanggal tidak valid</span>
                         @endif
                     </td>
-                    <td class="px-6 py-2">{{ number_format($item->masterrumahkaca->hargasewa) }}</td>
+                    <td class="px-6 py-2">{{ number_format($item->hargasewa) }}</td>
                 </tr>
                 @php
-                    $grandTotal += $item->masterrumahkaca->hargasewa;
+                    $grandTotal += $item->hargasewa;
                 @endphp
             @endforeach
         </tbody>

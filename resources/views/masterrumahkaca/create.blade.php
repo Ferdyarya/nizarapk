@@ -33,6 +33,14 @@
                                               <div class="invalid-feedback">{{ $message }}</div>
                                           @enderror
                                       </div>
+                                      <div class="form-group">
+                                          <label for="hargasewa">Harga Sewa Perminggu</label>
+                                          <input type="number" name="hargasewa" class="form-control @error('hargasewa') is-invalid @enderror" id="hargasewa"
+                                              aria-describedby="emailHelp" placeholder="Masukan Kategori" value="{{ old('hargasewa') }}" required>
+                                          @error('hargasewa')
+                                              <div class="invalid-feedback">{{ $message }}</div>
+                                          @enderror
+                                      </div>
                                       <button type="submit" class="btn btn-warning">Submit</button>
                                   </form>
                               </div>

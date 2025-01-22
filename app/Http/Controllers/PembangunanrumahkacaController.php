@@ -125,14 +125,14 @@ public function store(Request $request)
 
     //Report
     //  Laporan Buku pembangunanrumahkaca Filter
-     public function cetakbarangpertanggal()
+     public function cetakpembangunanpertanggal()
      {
          $pembangunanrumahkaca = pembangunanrumahkaca::Paginate(10);
 
          return view('laporannya.laporanpembangunanrumahkaca', ['laporanpembangunanrumahkaca' => $pembangunanrumahkaca]);
      }
 
-     public function filterdatebarang(Request $request)
+     public function filterdatepembangunan(Request $request)
      {
          $startDate = $request->input('dari');
          $endDate = $request->input('sampai');

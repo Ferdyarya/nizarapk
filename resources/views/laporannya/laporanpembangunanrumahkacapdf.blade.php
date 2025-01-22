@@ -102,37 +102,43 @@
                 <th class="px-6 py-2">Nama Rumah</th>
                 <th class="px-6 py-2">Deskripsi</th>
                 <th class="px-6 py-2">Penanggung Jawab</th>
-                <th class="px-6 py-2">Keperluan Dana</th>
                 <th class="px-6 py-2">Status</th>
+                <th class="px-6 py-2">Keperluan Dana</th>
             </tr>
         </thead>
         <tbody>
-            {{-- @php
+            @php
             $grandTotal = 0;
-            @endphp --}}
+            @endphp
 
             @foreach ($laporanpembangunanrumahkaca as $item)
                 <tr>
                     <td class="px-6 py-6">{{ $loop->iteration }}</td>
-                    <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
-                    </td>
+                    <td class="px-6 py-2">{{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}</td>
                     <td class="px-6 py-2">{{ $item->namarumah }}</td>
                     <td class="px-6 py-2">{{ $item->deskripsi }}</td>
                     <td class="px-6 py-2">{{ $item->masterpegawai->nama }}</td>
-                    <td class="px-6 py-2">Rp. {{ number_format($item->keperluandana) }}</td>
                     <td class="px-6 py-2">
                         <!-- Display status as a badge if it's already set -->
                         @if ($item->status == 'Terverifikasi')
                             <span class="p-2 mb-2 bg-success text-black rounded">Terverifikasi</span>
-                            <!-- Green for verified -->
                         @elseif($item->status == 'Ditolak')
                             <span class="p-2 mb-2 bg-danger text-black rounded">Ditolak</span>
-                            <!-- Red/orange for rejected -->
                         @endif
                     </td>
+                    <td class="px-6 py-2">Rp. {{ number_format($item->keperluandana) }}</td>
                 </tr>
+                @php
+                    $grandTotal += $item->keperluandana;
+                @endphp
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" class="text-right px-6 py-2"><strong>Grand Total: </strong></td>
+                <td class="px-6 py-2">Rp. {{ number_format($grandTotal) }}</td>
+            </tr>
+        </tfoot>
     </table>
     <div class="date-container">
         Banjarmasin, <span class="formatted-date">{{ now()->format('d-m-Y') }}</span>

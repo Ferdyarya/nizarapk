@@ -32,6 +32,11 @@
                                         <input value="{{ $item->rmhkaca }}" type="text" name="nama" class="form-control"
                                             id="exampleInputPassword1" placeholder="Masukan Nama Rumah Kaca" required>
                                      </div>
+                                      <div class="form-group">
+                                        <label for="hargasewa">Kategori</label>
+                                        <input value="{{ $item->hargasewa }}" type="number" name="hargasewa" class="form-control"
+                                            id="exampleInputPassword1" placeholder="Masukan Harga" required>
+                                     </div>
                                       <button type="submit" class="btn btn-warning">Submit</button>
                                   </form>
                               </div>

@@ -115,14 +115,14 @@ class SewarumahkacaController extends Controller
     }
 
     // Laporan Buku Sewarumahkaca Filter
-    public function cetakbarangpertanggal()
+    public function cetakrumahkacapertanggal()
     {
         $Sewarumahkaca = Sewarumahkaca::Paginate(10);
 
         return view('laporannya.laporansewarumahkaca', ['laporansewarumahkaca' => $Sewarumahkaca]);
     }
 
-    public function filterdatebarang(Request $request)
+    public function filterdaterumahkaca(Request $request)
     {
         $startDate = $request->input('dari');
         $endDate = $request->input('sampai');
@@ -213,6 +213,82 @@ class SewarumahkacaController extends Controller
 
     return $pdf->download('laporan_pernama.pdf');
 }
+
+
+// Perkategori rumah kaca
+public function perkategori(Request $request)
+{
+    $filter = $request->query('filter', 'all');
+
+    $query = DB::table('sewarumahkacas')
+        ->join('masterrumahkacas', 'sewarumahkacas.id_masterrumahkaca', '=', 'masterrumahkacas.id')
+        ->select('sewarumahkacas.*', 'masterrumahkacas.rmhkaca','masterrumahkacas.hargasewa');
+
+    if ($filter !== 'all') {
+        $query->where('masterrumahkacas.rmhkaca', $filter);
+    }
+
+    $sewarumahkaca = $query->paginate(10);
+
+    // return($sewarumahkaca);
+
+    // Query untuk mendapatkan jumlah per kategori
+    $rmhkacaCounts = DB::table('sewarumahkacas')
+        ->join('masterrumahkacas', 'sewarumahkacas.id_masterrumahkaca', '=', 'masterrumahkacas.id')
+        ->select('masterrumahkacas.rmhkaca', DB::raw('COUNT(sewarumahkacas.id) as count'))
+        ->groupBy('masterrumahkacas.rmhkaca')
+        ->orderBy('masterrumahkacas.rmhkaca')
+        ->get();
+
+    return view('laporannya.perkategori', [
+        'sewarumahkaca' => $sewarumahkaca,
+        'rmhkacaCounts' => $rmhkacaCounts,
+        'filter' => $filter,
+    ]);
+}
+
+
+// Fungsi untuk mencetak PDF berdasarkan kategori
+public function cetakPerkategoriPdf(Request $request)
+{
+    $filter = $request->query('filter', 'all');
+
+    // Query untuk mengambil data berdasarkan filter
+//    $query = Sewarumahkaca::query();
+
+    $query = DB::table('sewarumahkacas')
+    ->join('masterrumahkacas', 'sewarumahkacas.id_masterrumahkaca', '=', 'masterrumahkacas.id')
+    ->select('sewarumahkacas.*', 'masterrumahkacas.rmhkaca','masterrumahkacas.hargasewa');
+
+    if ($filter !== 'all') {
+    $query->where('masterrumahkacas.rmhkaca', $filter);
+    }
+
+    // Ambil data tanpa paginasi untuk PDF
+    $sewarumahkaca = $query->paginate(10);
+
+    // Menghitung jumlah berdasarkan kategori (rmhkaca) dengan join
+    $rmhkacaCounts = DB::table('sewarumahkacas')
+        ->join('masterrumahkacas', 'sewarumahkacas.id_masterrumahkaca', '=', 'masterrumahkacas.id')
+        ->select('masterrumahkacas.rmhkaca', DB::raw('COUNT(sewarumahkacas.id) as count'))
+        ->groupBy('masterrumahkacas.rmhkaca')
+        ->orderBy('masterrumahkacas.rmhkaca')
+        ->get();
+
+    // Generate PDF dengan data yang ada
+    $pdf = PDF::loadView('laporannya.perkategoripdf', [
+        'sewarumahkaca' => $sewarumahkaca,
+        'rmhkacaCounts' => $rmhkacaCounts,
+        'filter' => $filter,
+    ]);
+
+    // Mengunduh file PDF
+    return $pdf->download('laporan_KategoriRumahkaca.pdf');
+}
+
+
+
+
 
 
 

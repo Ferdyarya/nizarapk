@@ -55,7 +55,7 @@
                       <span class="hide-menu">Dashboard</span>
                     </a>
                   </li>
-
+                  @if (Auth::user()->hakakses('admin'))
                   <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">MASTER DATA</span>
@@ -92,6 +92,8 @@
                       <span class="hide-menu">Kategori No Kursi</span>
                     </a>
                   </li> --}}
+                  @endif
+                  @if (Auth::user()->hakakses('pimpinan') || Auth::user()->hakakses('admin'))
                   <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Data Table</span>
@@ -121,6 +123,7 @@
                         <span class="hide-menu">Pembangunan Rumah Kaca</span>
                     </a>
                 </li>
+                @endif
                 {{-- <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('suratdisposisi.index') }}" aria-expanded="false">
                         <span>
@@ -137,7 +140,7 @@
                         <span class="hide-menu">Surat Keluar</span>
                     </a>
                 </li> --}}
-
+                @if (Auth::user()->hakakses('admin')|| Auth::user()->hakakses('petugas'))
                   <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Report</span>
@@ -147,7 +150,7 @@
                       <span>
                         <i class="ti ti-report"></i>
                       </span>
-                      <span class="hide-menu">Lap Sewa Rumah kaca</span>
+                      <span class="hide-menu">Lap Semua Sewa Rumah kaca</span>
                     </a>
                   </li>
                   <li class="sidebar-item">
@@ -174,6 +177,15 @@
                       <span class="hide-menu">Lap Jumlah Penyewa Rumah Kaca</span>
                     </a>
                   </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('perkategori')}}" aria-expanded="false">
+                      <span>
+                        <i class="ti ti-report"></i>
+                      </span>
+                      <span class="hide-menu">Lap Kategori Rumah Kaca</span>
+                    </a>
+                  </li>
+                  @endif
                 </ul>
               </nav>
               <!-- End Sidebar navigation -->
