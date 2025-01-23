@@ -24,7 +24,7 @@
                       <div class="col-8">
                           <div class="card" style="border-radius: 10px;">
                               <div class="card-body">
-                                  <form method="POST" action="{{ route('masteranggota.update', $item->id) }}" enctype="multipart/form-data">
+                                  <form method="POST" action="{{ route('masterpegawai.update', $item->id) }}" enctype="multipart/form-data">
                                       @csrf
                                       @method('PUT')
                                       <div class="form-group">

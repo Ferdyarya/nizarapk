@@ -37,20 +37,22 @@
                                     @method('PUT')
 
                                     <div class="form-group mb-3">
-                                        <label for="id_pimpinan">Rumah Terpilih</label>
-                                        <select class="form-select" name="id_pimpinan" id="judulbuku"
-                                            style="border-radius: 8px;" data-placeholder="Pilih Penanggung Jawab">
-                                            <option></option>
-                                            @foreach ($user as $item)
-                                                @if ($item->role == 'pemimpin') <!-- Pastikan hanya menampilkan pengguna dengan role 'pemimpin' -->
-                                                    <option value="{{ $item->id }}"
-                                                        {{ isset($selectedUser) && $selectedUser->id == $item->id ? 'selected' : '' }}>
-                                                        {{ $item->name }}
-                                                    </option>
-                                                @endif
+                                        <label for="id_masterpegawai">Penanggung Jawab</label>
+                                        <select class="form-select" name="id_masterpegawai" id="judulbuku"
+                                                style="border-radius: 8px;" data-placeholder="Pilih Penanggung Jawab">
+                                            <option value=""></option> <!-- ini diperlukan agar placeholder bisa muncul -->
+                                            @foreach ($masterpegawai as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ old('id_masterpegawai') == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->nama }}
+                                                </option>
                                             @endforeach
                                         </select>
+                                        @error('id_masterpegawai')
+                                            <div class="text-danger mt-2">{{ $message }}</div>
+                                        @enderror
                                     </div>
+
 
                                     <div class="form-group">
                                         <label for="tanggal">Tanggal Terima</label>

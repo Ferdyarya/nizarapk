@@ -140,8 +140,8 @@ public function store(Request $request)
           if ($startDate == '' && $endDate == '') {
              $laporanpembangunanrumahkaca = pembangunanrumahkaca::paginate(10);
          } else {
-             $laporanpembangunanrumahkaca = pembangunanrumahkaca::whereDate('tglterima','>=',$startDate)
-                                         ->whereDate('tglterima','<=',$endDate)
+             $laporanpembangunanrumahkaca = pembangunanrumahkaca::whereDate('tanggal','>=',$startDate)
+                                         ->whereDate('tanggal','<=',$endDate)
                                          ->paginate(10);
          }
          session(['filter_start_date' => $startDate]);
@@ -159,13 +159,13 @@ public function store(Request $request)
          if ($startDate == '' && $endDate == '') {
              $laporanpembangunanrumahkaca = pembangunanrumahkaca::all();
          } else {
-             $laporanpembangunanrumahkaca = pembangunanrumahkaca::whereDate('tglterima', '>=', $startDate)
-                                             ->whereDate('tglterima', '<=', $endDate)
+             $laporanpembangunanrumahkaca = pembangunanrumahkaca::whereDate('tanggal', '>=', $startDate)
+                                             ->whereDate('tanggal', '<=', $endDate)
                                              ->get();
          }
 
          // Render view dengan menyertakan data laporan dan informasi filter
          $pdf = PDF::loadview('laporannya.laporanpembangunanrumahkacapdf', compact('laporanpembangunanrumahkaca'));
-         return $pdf->download('laporan_laporanpembangunanrumahkaca.pdf');
+         return $pdf->download('laporan_laporanpembangunanrumahkaca.pdf'); 
      }
 }

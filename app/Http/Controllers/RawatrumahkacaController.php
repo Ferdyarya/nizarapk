@@ -138,8 +138,8 @@ public function store(Request $request)
           if ($startDate == '' && $endDate == '') {
              $laporanrawatrumahkaca = rawatrumahkaca::paginate(10);
          } else {
-             $laporanrawatrumahkaca = rawatrumahkaca::whereDate('tglterima','>=',$startDate)
-                                         ->whereDate('tglterima','<=',$endDate)
+             $laporanrawatrumahkaca = rawatrumahkaca::whereDate('tanggal','>=',$startDate)
+                                         ->whereDate('tanggal','<=',$endDate)
                                          ->paginate(10);
          }
          session(['filter_start_date' => $startDate]);
@@ -157,8 +157,8 @@ public function store(Request $request)
          if ($startDate == '' && $endDate == '') {
              $laporanrawatrumahkaca = rawatrumahkaca::all();
          } else {
-             $laporanrawatrumahkaca = rawatrumahkaca::whereDate('tglterima', '>=', $startDate)
-                                             ->whereDate('tglterima', '<=', $endDate)
+             $laporanrawatrumahkaca = rawatrumahkaca::whereDate('tanggal', '>=', $startDate)
+                                             ->whereDate('tanggal', '<=', $endDate)
                                              ->get();
          }
 

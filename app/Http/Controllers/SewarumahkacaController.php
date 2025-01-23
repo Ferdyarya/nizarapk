@@ -130,8 +130,8 @@ class SewarumahkacaController extends Controller
          if ($startDate == '' && $endDate == '') {
             $laporansewarumahkaca = Sewarumahkaca::paginate(10);
         } else {
-            $laporansewarumahkaca = Sewarumahkaca::whereDate('tanggal','>=',$startDate)
-                                        ->whereDate('tanggal','<=',$endDate)
+            $laporansewarumahkaca = Sewarumahkaca::whereDate('tanggal_start','>=',$startDate)
+                                        ->whereDate('tanggal_end','<=',$endDate)
                                         ->paginate(10);
         }
         session(['filter_start_date' => $startDate]);
@@ -149,8 +149,8 @@ class SewarumahkacaController extends Controller
         if ($startDate == '' && $endDate == '') {
             $laporansewarumahkaca = Sewarumahkaca::all();
         } else {
-            $laporansewarumahkaca = Sewarumahkaca::whereDate('tanggal', '>=', $startDate)
-                                            ->whereDate('tanggal', '<=', $endDate)
+            $laporansewarumahkaca = Sewarumahkaca::whereDate('tanggal_start', '>=', $startDate)
+                                            ->whereDate('tanggal_end', '<=', $endDate)
                                             ->get();
         }
 
